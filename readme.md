@@ -8,7 +8,6 @@
 ```shell script
 pip install poetry
 poetry install --no-dev
-poetry run python manage.py migrate
 ```
 
 ## launch

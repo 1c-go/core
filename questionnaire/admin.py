@@ -15,13 +15,13 @@ class AnswerTable(TabularInline):
 
 @register(Question, site=admin_site)
 class QuestionAdmin(ModelAdmin):
-    list_display = ('id', 'name', 'specialization', 'hospital', 'positive_answer')
-    list_filter = ('specialization', 'hospital', 'positive_answer')
-    search_fields = ('name', 'specialization__name', 'hospital__name')
+    list_display = ('id', 'name', 'positive_answer')
+    list_filter = ('positive_answer',)
+    search_fields = ('name',)
 
 
 @register(Answer, site=admin_site)
 class AnswerAdmin(ModelAdmin):
-    list_display = ('id', 'record', 'question', 'answer')
-    list_filter = ('record', 'question', 'answer')
+    list_display = ('id', 'question', 'answer')
+    list_filter = ('question', 'answer')
     search_fields = ('question__name',)

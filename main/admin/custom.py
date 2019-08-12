@@ -33,7 +33,7 @@ class VersionedUserAdmin(VersionAdmin, UserAdmin):
             'fields': ('last_login', 'date_joined')
         }),
     )
-    list_display = ('username', 'email', 'full_name', 'is_staff')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'middle_name', 'is_staff')
     search_fields = ('username', 'first_name', 'last_name', 'middle_name', 'email')
 
 
