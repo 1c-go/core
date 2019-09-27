@@ -24,7 +24,7 @@ def main():
         answer.sentiment = response_data['strength']
         answer.save()
 
-    qs = Comment.objects.filter(sentiment=None).values(article_id=F('id'), text=F('answer'))[:50]
+    qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'), text=F('text'))[:50]
     data = list(qs)
     response = requests.post(url, headers=headers, json=data)
     if response.ok:
