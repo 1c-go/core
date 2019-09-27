@@ -14,6 +14,7 @@ django-filter = "^2.2"
 django-extensions = "^2.2"
 django-suit = { git = "https://github.com/darklow/django-suit", branch = "v2" }
 django-q = "^1.0"
+psycopg2 = "^2.8"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = "^0.15.5"

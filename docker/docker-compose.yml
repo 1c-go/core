@@ -9,11 +9,11 @@ services:
     backend:
         image: hack
         build:
-            context: .
+            context: ../
             dockerfile: docker/Dockerfile
         env_file: db.env
         environment:
-          DJANGO_SETTINGS_MODULE: main.settings_develop
+          DJANGO_SETTINGS_MODULE: hack.settings_production
         depends_on:
             - db
         ports:
@@ -21,11 +21,11 @@ services:
     workerk:
       image: hack
       build:
-        context: .
+        context: ../
         dockerfile: docker/Dockerfile
       env_file: db.env
       environment:
-        DJANGO_SETTINGS_MODULE: main.settings_develop
+        DJANGO_SETTINGS_MODULE: hack.settings_production
       depends_on:
         - db
       command: ["python", "manage.py", "qcluster"]
