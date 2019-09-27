@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
@@ -19,7 +20,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def validate_password(self, value):
         validate_password(value)
-        return value
+        password = make_password(value)
+        return password  # value
 
 
 class ViewNicknameSerializer(serializers.ModelSerializer):

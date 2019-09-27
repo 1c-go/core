@@ -8,7 +8,7 @@ RUN pip install poetry \
 
 WORKDIR /app
 COPY pyproject.toml .
-# COPY poetry.lock .
+COPY poetry.lock .
 
 RUN poetry conf settings.virtualenvs.create false \
   && poetry install \

@@ -20,6 +20,12 @@ class Discussion(models.Model):
     type = models.PositiveSmallIntegerField(
         verbose_name='Тип', choices=TYPE_CHOICES,
     )
+    created_at = models.DateTimeField(
+        verbose_name='Дата-время создания', auto_now_add=True,
+    )
+    closed_at = models.DateTimeField(
+        verbose_name='Дата-время закрытия', null=True, blank=True,
+    )
 
     class Meta:
         verbose_name = 'Обсуждение'
