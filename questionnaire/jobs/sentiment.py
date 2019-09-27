@@ -1,14 +1,27 @@
 import requests
-
 from django.conf import settings
 from django.db.models import F
 
-from ..models import Question
 from ..models import Answer
 from ..models import Comment
-
+from ..models import Question
 
 url = 'https://russiansentimentanalyzer.p.rapidapi.com/rsa/sentiment/polarity/jsons/'
+
+
+def sentiment_objects(qs, manager, headers):
+    data = list(qs)
+    if not data:
+        return
+    response = requests.post(url, headers=headers, json=data)
+    if not response.ok:
+        return
+
+    response_data = response.json()
+    for sentiment in response_data:
+        obj = manager.get(id=sentiment['article_id'])
+        obj.sentiment = sentiment['strength']
+        obj.save()
 
 
 def main():
@@ -16,27 +29,7 @@ def main():
     qs = Answer.objects.filter(sentiment=None, question__answer_type__in=(Question.TEXT,
                                                                           Question.LONG_TEXT)
                                ).values(article_id=F('id'), text=F('answer'))[:50]
-    data = list(qs)
-    print(data)
-    if data:
-        response = requests.post(url, headers=headers, json=data)
-        if response.ok:
-            response_data = response.json()
-            for sentiment in response_data:
-                answer = Answer.objects.get(id=sentiment['article_id'])
-                answer.sentiment = sentiment['strength']
-                answer.save()
-                print(answer, answer.sentiment)
+    sentiment_objects(qs, Answer.objects, headers)
 
     qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'), text=F('text'))[:50]
-    data = list(qs)
-    print(data)
-    if data:
-        response = requests.post(url, headers=headers, json=data)
-        if response.ok:
-            response_data = response.json()
-            for sentiment in response_data:
-                comment = Comment.objects.get(id=sentiment['article_id'])
-                comment.sentiment = sentiment['strength']
-                comment.save()
-                print(comment, comment.sentiment)
+    sentiment_objects(qs, Comment.objects, headers)

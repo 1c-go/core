@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from main.serializers.user import ViewNicknameSerializer
-from questionnaire.models import Comment
+from ..models import Comment
 
 __all__ = ['CommentSerializer']
 

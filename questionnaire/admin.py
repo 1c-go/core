@@ -4,15 +4,14 @@ from django_q.conf import Conf
 from django_q.models import OrmQ, Schedule, Success, Failure
 
 from main.admin import admin_site
-from .models.topic import Topic
-from .models.discussion import Discussion
-from .models.question import Question
 from .models.answer import Answer
 from .models.answer_variant import AnswerVariant
 from .models.comment import Comment
+from .models.discussion import Discussion
 from .models.like import Like
 from .models.news import News
-
+from .models.question import Question
+from .models.topic import Topic
 
 admin_site.register(Schedule, ScheduleAdmin)
 admin_site.register(Success, TaskAdmin)

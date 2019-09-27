@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from ..models import Question
 from .answer_variant import AnswerVariantSerializer
+from ..models import Question
 
 __all__ = ['QuestionSerializer']
 

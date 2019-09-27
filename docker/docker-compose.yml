@@ -17,8 +17,8 @@ services:
         depends_on:
             - db
         ports:
-            - 80:8080
-    workerk:
+            - 8000:8000
+    worker:
       image: hack
       build:
         context: ../
@@ -28,7 +28,7 @@ services:
         DJANGO_SETTINGS_MODULE: hack.settings_production
       depends_on:
         - db
-      command: ["python", "manage.py", "qcluster"]
+      command: ["exec", "python", "manage.py", "qcluster"]
 
 volumes:
     db:
