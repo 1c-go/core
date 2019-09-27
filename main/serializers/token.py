@@ -6,6 +6,10 @@ __all__ = ['CustomTokenObtainSerializer']
 
 
 class CustomTokenObtainSerializer(TokenObtainPairSerializer):
+    default_error_messages = {
+        'no_active_account': 'Неверный логин или пароль'
+    }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

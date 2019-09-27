@@ -1,6 +1,7 @@
 from rest_framework import routers
 
 from questionnaire.views.comments import CommentsViewSet
+from questionnaire.views.news import NewsViewSet
 from .views.discussions import DiscussionsViewSet
 from .views.questions import QuestionsViewSet
 from .views.topics import TopicsViewSet
@@ -10,3 +11,4 @@ router.register('topics', TopicsViewSet)
 router.register('discussions', DiscussionsViewSet)
 router.register('questions', QuestionsViewSet)
 router.register('comments', CommentsViewSet)
+router.register('news', NewsViewSet)

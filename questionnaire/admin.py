@@ -8,6 +8,12 @@ from .models.answer import Answer
 from .models.answer_variant import AnswerVariant
 from .models.comment import Comment
 from .models.like import Like
+from .models.news import News
+
+
+@register(News, site=admin_site)
+class NewsAdmin(ModelAdmin):
+    list_filter = ('id', 'title', 'created_at')
 
 
 @register(Comment, site=admin_site)
