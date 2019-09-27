@@ -1,6 +1,7 @@
 import requests
 
 from django.conf import settings
+from django.db.models import F
 
 from ..models import Question
 from ..models import Answer
@@ -14,7 +15,7 @@ def main():
     headers = {'x-rapidapi-key': settings.RAPIDAPI_KEY}
     qs = Answer.objects.filter(sentiment=None, question__answer_type__in=(Question.TEXT,
                                                                           Question.LONG_TEXT)
-                               ).values(article_id='id', text='answer')[:50]
+                               ).values(article_id=F('id'), text=F('answer'))[:50]
     data = list(qs)
     response = requests.post(url, headers=headers, json=data)
     if response.ok:
@@ -23,7 +24,7 @@ def main():
         answer.sentiment = response_data['strength']
         answer.save()
 
-    qs = Comment.objects.filter(sentiment=None).values(article_id='id', text='answer')[:50]
+    qs = Comment.objects.filter(sentiment=None).values(article_id=F('id'), text=F('answer'))[:50]
     data = list(qs)
     response = requests.post(url, headers=headers, json=data)
     if response.ok:
