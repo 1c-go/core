@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_extensions',
+    'django_q',
     'reversion',
 
     'main.apps.MainConfig',
@@ -85,6 +86,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'hack',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'postgres',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
     }
 }
 
@@ -182,3 +189,23 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# -------- django-q --------
+
+Q_CLUSTER = {
+    'workers': 1,
+    'recycle': 50,
+    'catch_up': False,
+    'timeout': 120,
+    'compress': False,
+    'save_limit': 250,
+    'queue_limit': 2,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'bulk': 10,
+    'orm': 'default',
+}
+
+# -------- own --------
+
+RAPIDAPI_KEY = '04f156dee2mshcf09f640b7d94c6p19aae5jsnc108a262d259'

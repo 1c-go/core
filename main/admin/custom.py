@@ -9,10 +9,10 @@ from ..models import CustomUser
 class CustomAdminSite(AdminSite):
     site_url = None
     # Text to put at the end of each page's <title>.
-    site_title = 'Хакатон'
+    site_title = 'Сообщество Банка России'
 
     # Text to put in each page's <h1>.
-    site_header = 'Хакатон'
+    site_header = 'Сообщество Банка России'
 
     # Text to put at the top of the admin index page.
     index_title = 'Главная'

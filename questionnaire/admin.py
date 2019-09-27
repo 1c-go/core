@@ -1,4 +1,7 @@
 from django.contrib.admin import ModelAdmin, register, TabularInline
+from django_q.admin import QueueAdmin, FailAdmin, TaskAdmin, ScheduleAdmin
+from django_q.conf import Conf
+from django_q.models import OrmQ, Schedule, Success, Failure
 
 from main.admin import admin_site
 from .models.topic import Topic
@@ -9,6 +12,14 @@ from .models.answer_variant import AnswerVariant
 from .models.comment import Comment
 from .models.like import Like
 from .models.news import News
+
+
+admin_site.register(Schedule, ScheduleAdmin)
+admin_site.register(Success, TaskAdmin)
+admin_site.register(Failure, FailAdmin)
+
+if Conf.ORM or Conf.TESTING:
+    admin_site.register(OrmQ, QueueAdmin)
 
 
 @register(News, site=admin_site)

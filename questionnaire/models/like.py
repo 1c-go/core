@@ -13,10 +13,13 @@ class Like(models.Model):
     value = models.BooleanField(
         verbose_name='Значение',
     )
+    created_at = models.DateTimeField(
+        verbose_name='Создан', auto_now_add=True,
+    )
 
     class Meta:
-        verbose_name = 'Лайк|Дизлайк'
-        verbose_name_plural = 'Лайки|Дизлайки'
+        verbose_name = 'Лайк | Дизлайк'
+        verbose_name_plural = 'Лайки | Дизлайки'
         unique_together = ('discussion', 'user')
         default_related_name = 'likes'
 

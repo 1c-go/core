@@ -13,6 +13,9 @@ class Answer(models.Model):
     user = models.ForeignKey(
         verbose_name='Пользователь', to='main.CustomUser', on_delete=models.CASCADE,
     )
+    sentiment = models.FloatField(
+        verbose_name='Настроение', null=True, blank=True,
+    )
 
     class Meta:
         verbose_name = 'Ответ на вопрос'

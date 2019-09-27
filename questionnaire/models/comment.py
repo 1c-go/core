@@ -13,6 +13,9 @@ class Comment(models.Model):
     text = models.TextField(
         verbose_name='Текст',
     )
+    sentiment = models.FloatField(
+        verbose_name='Настроение', null=True, blank=True,
+    )
 
     class Meta:
         verbose_name = 'Комментарий'
