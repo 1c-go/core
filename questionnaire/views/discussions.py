@@ -13,7 +13,7 @@ class DiscussionsFilterSet(FilterSet):
     topic = filters.NumberFilter()
 
 
-class DiscussionsViewSet(GenericViewSet, mixins.ListModelMixin):
+class DiscussionsViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
     queryset = Discussion.objects.annotate(likes_count=Count('likes', filter=Q(likes__value=True)),
                                            dislikes_count=Count('likes', filter=Q(likes__value=False))
                                            ).order_by('name')

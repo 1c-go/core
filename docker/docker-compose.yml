@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+    db:
+        image: postgres:alpine
+        env_file: db.env
+        volumes:
+            - "db:/var/lib/postgresql/pgdata"
+    backend:
+        image: hack
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        env_file: db.env
+        environment:
+          DJANGO_SETTINGS_MODULE: main.settings_develop
+        depends_on:
+            - db
+        ports:
+            - 80:8080
+    workerk:
+      image: hack
+      build:
+        context: .
+        dockerfile: docker/Dockerfile
+      env_file: db.env
+      environment:
+        DJANGO_SETTINGS_MODULE: main.settings_develop
+      depends_on:
+        - db
+      command: ["python", "manage.py", "qcluster"]
+
+volumes:
+    db:

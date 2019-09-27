@@ -22,10 +22,11 @@ def main():
         response = requests.post(url, headers=headers, json=data)
         if response.ok:
             response_data = response.json()
-            answer = qs.get(id=response_data['article_id'])
-            answer.sentiment = response_data['strength']
-            answer.save()
-            print(answer, answer.sentiment)
+            for sentiment in response_data:
+                answer = Answer.objects.get(id=sentiment['article_id'])
+                answer.sentiment = sentiment['strength']
+                answer.save()
+                print(answer, answer.sentiment)
 
     qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'), text=F('text'))[:50]
     data = list(qs)
@@ -34,7 +35,8 @@ def main():
         response = requests.post(url, headers=headers, json=data)
         if response.ok:
             response_data = response.json()
-            comment = qs.get(id=response_data['article_id'])
-            comment.sentiment = response_data['strength']
-            comment.save()
-            print(comment, comment.sentiment)
+            for sentiment in response_data:
+                comment = Comment.objects.get(id=sentiment['article_id'])
+                comment.sentiment = sentiment['strength']
+                comment.save()
+                print(comment, comment.sentiment)
