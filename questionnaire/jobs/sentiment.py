@@ -17,18 +17,24 @@ def main():
                                                                           Question.LONG_TEXT)
                                ).values(article_id=F('id'), text=F('answer'))[:50]
     data = list(qs)
-    response = requests.post(url, headers=headers, json=data)
-    if response.ok:
-        response_data = response.json()
-        answer = qs.get(id=response_data['article_id'])
-        answer.sentiment = response_data['strength']
-        answer.save()
+    print(data)
+    if data:
+        response = requests.post(url, headers=headers, json=data)
+        if response.ok:
+            response_data = response.json()
+            answer = qs.get(id=response_data['article_id'])
+            answer.sentiment = response_data['strength']
+            answer.save()
+            print(answer, answer.sentiment)
 
     qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'), text=F('text'))[:50]
     data = list(qs)
-    response = requests.post(url, headers=headers, json=data)
-    if response.ok:
-        response_data = response.json()
-        comment = qs.get(id=response_data['article_id'])
-        comment.sentiment = response_data['strength']
-        comment.save()
+    print(data)
+    if data:
+        response = requests.post(url, headers=headers, json=data)
+        if response.ok:
+            response_data = response.json()
+            comment = qs.get(id=response_data['article_id'])
+            comment.sentiment = response_data['strength']
+            comment.save()
+            print(comment, comment.sentiment)
