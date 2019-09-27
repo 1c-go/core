@@ -28,7 +28,7 @@ services:
         DJANGO_SETTINGS_MODULE: hack.settings_production
       depends_on:
         - db
-      command: ["exec", "python", "manage.py", "qcluster"]
+      command: ["python", "manage.py", "qcluster"]
 
 volumes:
     db:
