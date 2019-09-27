@@ -8,7 +8,7 @@ from ..models import Answer
 from ..models import Comment
 
 
-url = 'https://russiansentimentanalyzer.p.rapidapi.com/rsa/sentiment/polarity/json/'
+url = 'https://russiansentimentanalyzer.p.rapidapi.com/rsa/sentiment/polarity/jsons/'
 
 
 def main():
