@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', full_admin_site.urls),
 
     re_path(r'^api/', include(router.urls)),
+    re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^api/registration/$', RegistrationView.as_view(), name='registration'),
     re_path(r'^api/token/$', CustomTokenObtainView.as_view(), name='token_obtain_pair'),
     re_path(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),

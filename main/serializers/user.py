@@ -4,22 +4,25 @@ from rest_framework.validators import UniqueValidator
 
 from ..models import CustomUser
 
-__all__ = ['RegistrationSerializer']
+__all__ = ['RegistrationSerializer', 'ViewNicknameSerializer']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
     _validator = UniqueValidator(queryset=CustomUser.objects.all())
     email = serializers.EmailField(validators=[_validator], required=False)
     username = serializers.CharField(validators=[_validator])
-    full_name = serializers.SerializerMethodField()
+    nickname = serializers.CharField(validators=[_validator])
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'full_name', 'email', 'password')
-
-    def get_full_name(self, obj):
-        return obj.get_full_name()
+        fields = ('username', 'nickname', 'full_name', 'email', 'password', 'type')
 
     def validate_password(self, value):
         validate_password(value)
         return value
+
+
+class ViewNicknameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'nickname')

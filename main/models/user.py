@@ -5,15 +5,30 @@ __all__ = ['CustomUser']
 
 
 class CustomUser(AbstractUser):
-    middle_name = models.CharField(
-        verbose_name='Отчество', max_length=150,
+    INDIVIDUAL = 0
+    ENTITY = 1
+    TYPE_CHOICES = (
+        (INDIVIDUAL, 'Физ лицо'),
+        (ENTITY, 'Юр лицо'),
+    )
+
+    first_name = None
+    last_name = None
+    full_name = models.CharField(
+        verbose_name='Имя', max_length=150,
+    )
+    nickname = models.CharField(
+        verbose_name='Ник', max_length=150, unique=True,
+    )
+    type = models.PositiveSmallIntegerField(
+        verbose_name='Тип', choices=TYPE_CHOICES,
     )
 
     def get_full_name(self):
-        return f'{self.last_name} {self.first_name} {self.middle_name}'
+        return self.full_name
 
     def get_short_name(self):
-        return f'{self.last_name} {self.first_name[:1]}.{self.middle_name[:1]}'
+        return self.full_name
 
     def __str__(self):
-        return self.get_full_name()
+        return self.full_name

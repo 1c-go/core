@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hack"
+name = "hack2"
 version = "0.1.0"
 description = ""
 authors = ["Tim <jlemyp96@gmail.com>"]

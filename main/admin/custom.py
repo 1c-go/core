@@ -21,10 +21,10 @@ class CustomAdminSite(AdminSite):
 class VersionedUserAdmin(VersionAdmin, UserAdmin):
     fieldsets = (
         (None, {
-            'fields': ('username', 'password')
+            'fields': ('username', 'password', 'type')
         }),
         ('Персональная информация', {
-            'fields': ('first_name', 'last_name', 'middle_name', 'email')
+            'fields': ('nickname', 'full_name', 'email')
         }),
         ('Права', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
@@ -33,8 +33,15 @@ class VersionedUserAdmin(VersionAdmin, UserAdmin):
             'fields': ('last_login', 'date_joined')
         }),
     )
-    list_display = ('username', 'email', 'first_name', 'last_name', 'middle_name', 'is_staff')
-    search_fields = ('username', 'first_name', 'last_name', 'middle_name', 'email')
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'nickname', 'full_name', 'type', 'password1', 'password2'),
+        }),
+    )
+    list_display = ('username', 'nickname', 'email', 'full_name', 'type', 'is_staff')
+    list_filter = ('type',)
+    search_fields = ('username', 'nickname', 'full_name', 'email')
 
 
 class VersionedGroupAdmin(VersionAdmin, GroupAdmin):
