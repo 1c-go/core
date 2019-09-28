@@ -6,7 +6,7 @@ __all__ = ['TopicSerializer']
 
 
 class TopicSerializer(serializers.ModelSerializer):
-    discussions = serializers.IntegerField(source='discussions_count')
+    discussions = serializers.IntegerField(source='discussions__count')
 
     class Meta:
         model = Topic
