@@ -31,12 +31,6 @@ class CommentAdmin(ModelAdmin):
     list_display = ('id', 'discussion', 'user')
 
 
-@register(AnswerVariant, site=admin_site)
-class AnswerVariantAdmin(ModelAdmin):
-    list_display = ('id', 'question', 'variant')
-    search_fields = ('question__question', 'variant')
-
-
 @register(Like, site=admin_site)
 class LikeAdmin(ModelAdmin):
     list_display = ('id', 'discussion', 'user', 'value')
@@ -50,25 +44,39 @@ class TopicAdmin(ModelAdmin):
     search_fields = ('name',)
 
 
+class QuestionTable(TabularInline):
+    model = Question
+    classes = ('collapse',)
+    fields = ('question', 'answer_type')
+    extra = 3
+
+
 @register(Discussion, site=admin_site)
 class DiscussionAdmin(ModelAdmin):
     list_display = ('id', 'topic', 'name', 'type')
     list_filter = ('type',)
     search_fields = ('topic__name', 'name')
+    inlines = (QuestionTable,)
 
 
-class AnswerTable(TabularInline):
-    model = Answer
+class AnswerVariantTable(TabularInline):
+    model = AnswerVariant
     classes = ('collapse',)
-    fields = ('id', 'question', 'answer')
-    readonly_fields = fields
-    extra = 0
+    fields = ('variant',)
+    extra = 3
 
 
 @register(Question, site=admin_site)
 class QuestionAdmin(ModelAdmin):
     list_display = ('id', 'question')
+    inlines = (AnswerVariantTable,)
     search_fields = ('question',)
+
+
+@register(AnswerVariant, site=admin_site)
+class AnswerVariantAdmin(ModelAdmin):
+    list_display = ('id', 'question', 'variant')
+    search_fields = ('question__question', 'variant')
 
 
 @register(Answer, site=admin_site)

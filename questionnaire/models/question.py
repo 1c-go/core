@@ -43,4 +43,4 @@ class Question(models.Model):
         default_related_name = 'questions'
 
     def __str__(self):
-        return self.question[:20]
+        return self.question[:60]
