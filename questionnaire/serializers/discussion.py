@@ -12,9 +12,3 @@ class DiscussionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discussion
         fields = ('id', 'name', 'description', 'created_at', 'closed_at', 'likes', 'dislikes')
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        if self.context['view'].action == 'list':
-            data['description'] = data['description'][:100]
-        return data
