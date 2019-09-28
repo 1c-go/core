@@ -24,18 +24,7 @@ if Conf.ORM or Conf.TESTING:
 @register(News, site=admin_site)
 class NewsAdmin(ModelAdmin):
     list_filter = ('id', 'title', 'created_at')
-
-
-@register(Comment, site=admin_site)
-class CommentAdmin(ModelAdmin):
-    list_display = ('id', 'discussion', 'user')
-
-
-@register(Like, site=admin_site)
-class LikeAdmin(ModelAdmin):
-    list_display = ('id', 'discussion', 'user', 'value')
-    search_fields = ('discussion__name', 'user__full_name')
-    list_filter = ('value',)
+    list_display = ('id', 'title', 'created_at')
 
 
 class DiscussionTable(TabularInline):
@@ -50,6 +39,19 @@ class DiscussionTable(TabularInline):
 class TopicAdmin(ModelAdmin):
     list_display = ('id', 'name')
     search_fields = ('name',)
+    inlines = (DiscussionTable,)
+
+
+@register(Comment, site=admin_site)
+class CommentAdmin(ModelAdmin):
+    list_display = ('id', 'discussion', 'user')
+
+
+@register(Like, site=admin_site)
+class LikeAdmin(ModelAdmin):
+    list_display = ('id', 'discussion', 'user', 'value')
+    search_fields = ('discussion__name', 'user__full_name')
+    list_filter = ('value',)
 
 
 class QuestionTable(TabularInline):
