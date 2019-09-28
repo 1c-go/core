@@ -12,7 +12,7 @@ class ProfileViewSet(APIView):
         return Response(data)
 
     def post(self, request, *args, **kwargs):
-        serializer = ProfileEditSerializer(data=request.data, partial=True)
+        serializer = ProfileEditSerializer(request.user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response()
