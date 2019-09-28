@@ -11,6 +11,12 @@ class CustomUser(AbstractUser):
         (INDIVIDUAL, 'Физ лицо'),
         (ENTITY, 'Юр лицо'),
     )
+    MALE = 1
+    FEMALE = 2
+    GENDER_CHOICES = (
+        (MALE, 'Мужской'),
+        (FEMALE, 'Женский'),
+    )
 
     first_name = None
     last_name = None
@@ -22,6 +28,15 @@ class CustomUser(AbstractUser):
     )
     type = models.PositiveSmallIntegerField(
         verbose_name='Тип', choices=TYPE_CHOICES,
+    )
+    city = models.CharField(
+        verbose_name='Город', max_length=50, null=True, blank=True,
+    )
+    gender = models.PositiveSmallIntegerField(
+        verbose_name='Пол', choices=GENDER_CHOICES, null=True, blank=True,
+    )
+    birthday = models.DateField(
+        verbose_name='Дата рождения', null=True, blank=True,
     )
 
     def get_full_name(self):

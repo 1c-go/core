@@ -17,7 +17,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'nickname', 'full_name', 'email', 'password', 'type')
+        fields = ('username', 'nickname', 'full_name', 'email', 'password', 'type', 'city',
+                  'gender', 'birthday')
 
     def validate_password(self, value):
         validate_password(value)
@@ -34,10 +35,11 @@ class ViewNicknameSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'full_name', 'nickname', 'email', 'username', 'type')
+        fields = ('id', 'full_name', 'nickname', 'email', 'username', 'type', 'city', 'gender',
+                  'birthday')
 
 
 class ProfileEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'full_name', 'email')
+        fields = ('id', 'full_name', 'email', 'city', 'gender', 'birthday')
