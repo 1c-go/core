@@ -5,7 +5,8 @@ from rest_framework.validators import UniqueValidator
 
 from ..models import CustomUser
 
-__all__ = ['RegistrationSerializer', 'ViewNicknameSerializer']
+__all__ = ['RegistrationSerializer', 'ViewNicknameSerializer', 'ProfileSerializer',
+           'ProfileEditSerializer']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -21,10 +22,22 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         validate_password(value)
         password = make_password(value)
-        return password  # value
+        return password
 
 
 class ViewNicknameSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'nickname')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'full_name', 'nickname', 'email', 'username', 'type')
+
+
+class ProfileEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'full_name', 'email')

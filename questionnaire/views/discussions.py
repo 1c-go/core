@@ -1,12 +1,22 @@
 from django.db.models import Count, Q
 from django_filters import FilterSet, filters
-from rest_framework import mixins
+from rest_framework import mixins, serializers
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from ..models import Discussion
 from ..serializers.discussion import DiscussionSerializer
 
 __all__ = ['DiscussionsViewSet']
+
+
+class CommentParser(serializers.Serializer):
+    text = serializers.CharField(allow_blank=False)
+
+
+class LikeParser(serializers.Serializer):
+    value = serializers.BooleanField()
 
 
 class DiscussionsFilterSet(FilterSet):
@@ -23,3 +33,28 @@ class DiscussionsViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveM
     def get_queryset(self):
         user = self.request.user
         return super().get_queryset().filter(type=user.type)
+
+    @action(methods=('post',), detail=True)
+    def like(self, request, *args, **kwargs):
+        context = self.get_serializer_context()
+        parser = LikeParser(data=request.data, context=context)
+        parser.is_valid(raise_exception=True)
+
+        obj = self.get_object()
+        user = request.user
+
+        obj.likes.filter(user=user).delete()
+        obj.likes.create(user=user, value=parser.validated_data['value'])
+        return Response()
+
+    @action(methods=('post',), detail=True)
+    def comment(self, request, *args, **kwargs):
+        context = self.get_serializer_context()
+        parser = LikeParser(data=request.data, context=context)
+        parser.is_valid(raise_exception=True)
+
+        obj = self.get_object()
+        user = request.user
+
+        obj.comments.create(user=user, text=parser.validated_data['text'])
+        return Response()

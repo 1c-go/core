@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
@@ -8,5 +9,5 @@ __all__ = ['TopicsViewSet']
 
 
 class TopicsViewSet(GenericViewSet, mixins.ListModelMixin):
-    queryset = Topic.objects.order_by('name')
+    queryset = Topic.objects.annotate(Count('discussions')).order_by('name')
     serializer_class = TopicSerializer
