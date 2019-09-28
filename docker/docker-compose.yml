@@ -29,6 +29,8 @@ services:
       depends_on:
         - db
       command: ["python", "manage.py", "qcluster"]
+    vk_bot:
+      image: vk_bot
 
 volumes:
     db:
