@@ -50,7 +50,7 @@ class DiscussionsViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveM
     @action(methods=('post',), detail=True)
     def comment(self, request, *args, **kwargs):
         context = self.get_serializer_context()
-        parser = LikeParser(data=request.data, context=context)
+        parser = CommentParser(data=request.data, context=context)
         parser.is_valid(raise_exception=True)
 
         obj = self.get_object()

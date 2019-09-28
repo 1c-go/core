@@ -11,4 +11,5 @@ class DiscussionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Discussion
-        fields = ('id', 'name', 'description', 'created_at', 'closed_at', 'likes', 'dislikes')
+        fields = ('id', 'name', 'description', 'preview', 'created_at', 'closed_at', 'likes',
+                  'dislikes')

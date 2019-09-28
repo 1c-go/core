@@ -17,6 +17,9 @@ class Discussion(models.Model):
     description = models.TextField(
         verbose_name='Описание',
     )
+    preview = models.CharField(
+        verbose_name='Предпросмотр', max_length=100,
+    )
     type = models.PositiveSmallIntegerField(
         verbose_name='Тип', choices=TYPE_CHOICES,
     )
