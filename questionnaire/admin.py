@@ -38,6 +38,14 @@ class LikeAdmin(ModelAdmin):
     list_filter = ('value',)
 
 
+class DiscussionTable(TabularInline):
+    model = Discussion
+    classes = ('collapse',)
+    fields = ('question', 'answer_type')
+    show_change_link = True
+    extra = 3
+
+
 @register(Topic, site=admin_site)
 class TopicAdmin(ModelAdmin):
     list_display = ('id', 'name')
@@ -48,6 +56,7 @@ class QuestionTable(TabularInline):
     model = Question
     classes = ('collapse',)
     fields = ('question', 'answer_type')
+    show_change_link = True
     extra = 3
 
 
@@ -68,15 +77,9 @@ class AnswerVariantTable(TabularInline):
 
 @register(Question, site=admin_site)
 class QuestionAdmin(ModelAdmin):
-    list_display = ('id', 'question')
+    list_display = ('id', 'question', 'answer_type')
     inlines = (AnswerVariantTable,)
     search_fields = ('question',)
-
-
-@register(AnswerVariant, site=admin_site)
-class AnswerVariantAdmin(ModelAdmin):
-    list_display = ('id', 'question', 'variant')
-    search_fields = ('question__question', 'variant')
 
 
 @register(Answer, site=admin_site)
