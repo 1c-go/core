@@ -1,3 +1,4 @@
+from django.db.models import Exists, OuterRef
 from django_filters import FilterSet, filters
 from rest_framework import mixins, serializers
 from rest_framework.decorators import action
@@ -5,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from questionnaire.models import Answer
 from ..models import Question
 from ..serializers.question import QuestionSerializer
 
@@ -53,6 +55,11 @@ class QuestionsViewSet(GenericViewSet, mixins.ListModelMixin):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     filterset_class = QuestionsFilterSet
+
+    def get_queryset(self):
+        user = self.request.user
+        return super().get_queryset().annotate(answered=Exists(
+            Answer.objects.filter(question=OuterRef('id'), user=user)))
 
     @action(methods=('post',), detail=True)
     def answer(self, request, *args, **kwargs):

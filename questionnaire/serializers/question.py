@@ -8,7 +8,8 @@ __all__ = ['QuestionSerializer']
 
 class QuestionSerializer(serializers.ModelSerializer):
     answer_variants = AnswerVariantSerializer(many=True)
+    answered = serializers.BooleanField()
 
     class Meta:
         model = Question
-        fields = ('id', 'name', 'question', 'answer_type', 'answer_variants')
+        fields = ('id', 'name', 'question', 'answer_type', 'answer_variants', 'answered')
