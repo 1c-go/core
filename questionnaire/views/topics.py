@@ -9,5 +9,6 @@ __all__ = ['TopicsViewSet']
 
 
 class TopicsViewSet(GenericViewSet, mixins.ListModelMixin):
-    queryset = Topic.objects.annotate(Count('discussions')).order_by('name')
+    queryset = Topic.objects.annotate(Count('discussions')).filter(
+        discussions__count__gte=0).order_by('name')
     serializer_class = TopicSerializer

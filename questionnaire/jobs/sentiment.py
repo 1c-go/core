@@ -26,10 +26,10 @@ def sentiment_objects(qs, manager, headers):
 
 def main():
     headers = {'x-rapidapi-key': settings.RAPIDAPI_KEY}
-    qs = Answer.objects.filter(sentiment=None, question__answer_type__in=(Question.TEXT,
-                                                                          Question.LONG_TEXT)
-                               ).values(article_id=F('id'), text=F('answer'))[:50]
+    qs = Answer.objects.filter(sentiment=None, question__answer_type=Question.TEXT).values(
+        article_id=F('id'), text=F('answer'))[:50]
     sentiment_objects(qs, Answer.objects, headers)
 
-    qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'), text=F('text'))[:50]
+    qs = Comment.objects.filter(sentiment=None).values().values(article_id=F('id'),
+                                                                text=F('text'))[:50]
     sentiment_objects(qs, Comment.objects, headers)

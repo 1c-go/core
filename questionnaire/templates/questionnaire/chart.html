@@ -1,0 +1,60 @@
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>chart</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        td {
+            max-width: 50%;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tbody>
+        <tr>
+            <td><canvas id="chart-likes"></canvas></td>
+            <td><canvas id="chart-gender"></canvas></td>
+        </tr>
+        <tr>
+            <td><canvas id="chart-city"></canvas></td>
+            <td><canvas id="chart-age"></canvas></td>
+        </tr>
+        </tbody>
+    </table>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $.get('{% url "chart-likes" %}' + location.search, function(data) {
+                new Chart('chart-likes', {
+                    type: 'pie',
+                    data: data
+                });
+            });
+            $.get('{% url "chart-gender" %}' + location.search, function(data) {
+                new Chart('chart-gender', {
+                    type: 'pie',
+                    data: data
+                });
+            });
+            $.get('{% url "chart-city" %}' + location.search, function(data) {
+                new Chart('chart-city', {
+                    type: 'bar',
+                    data: data
+                });
+            });
+            $.get('{% url "chart-age" %}' + location.search, function(data) {
+                new Chart('chart-age', {
+                    type: 'bar',
+                    data: data
+                });
+            });
+        </script>
+    </body>
+</html>

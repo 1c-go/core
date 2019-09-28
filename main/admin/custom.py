@@ -24,7 +24,7 @@ class VersionedUserAdmin(VersionAdmin, UserAdmin):
             'fields': ('username', 'password', 'type')
         }),
         ('Персональная информация', {
-            'fields': ('nickname', 'full_name', 'email')
+            'fields': ('nickname', 'full_name', 'email', 'gender', 'city', 'birthday')
         }),
         ('Права', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
@@ -36,7 +36,8 @@ class VersionedUserAdmin(VersionAdmin, UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'nickname', 'full_name', 'type', 'password1', 'password2'),
+            'fields': ('username', 'nickname', 'full_name', 'type', 'gender', 'city', 'birthday',
+                       'password1', 'password2'),
         }),
     )
     list_display = ('username', 'nickname', 'email', 'full_name', 'type', 'is_staff')

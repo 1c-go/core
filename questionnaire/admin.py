@@ -34,7 +34,7 @@ class CommentAdmin(ModelAdmin):
 @register(AnswerVariant, site=admin_site)
 class AnswerVariantAdmin(ModelAdmin):
     list_display = ('id', 'question', 'variant')
-    search_fields = ('question__name', 'variant')
+    search_fields = ('question__question', 'variant')
 
 
 @register(Like, site=admin_site)
@@ -67,12 +67,12 @@ class AnswerTable(TabularInline):
 
 @register(Question, site=admin_site)
 class QuestionAdmin(ModelAdmin):
-    list_display = ('id', 'name')
-    search_fields = ('name',)
+    list_display = ('id', 'question')
+    search_fields = ('question',)
 
 
 @register(Answer, site=admin_site)
 class AnswerAdmin(ModelAdmin):
     list_display = ('id', 'question', 'answer')
     list_filter = ('question', 'answer')
-    search_fields = ('question__name',)
+    search_fields = ('question__question',)

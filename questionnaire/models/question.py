@@ -12,14 +12,12 @@ class QuestionManager(models.Manager):
 
 class Question(models.Model):
     TEXT = 1
-    LONG_TEXT = 2
-    BOOL = 3
-    NUMBER = 4
-    SINGLE = 5
-    MULTIPLE = 6
+    BOOL = 2
+    NUMBER = 3
+    SINGLE = 4
+    MULTIPLE = 5
     ANSWER_TYPE_CHOICES = (
         (TEXT, 'Текст'),
-        (LONG_TEXT, 'Длинный текст'),
         (BOOL, 'Да/Нет'),
         (NUMBER, 'Число'),
         (SINGLE, 'Один вариант ответа'),
@@ -28,9 +26,6 @@ class Question(models.Model):
 
     discussion = models.ForeignKey(
         verbose_name='Обсуждение', to='questionnaire.Discussion', on_delete=models.CASCADE,
-    )
-    name = models.CharField(
-        verbose_name='Название', max_length=250,
     )
     question = models.TextField(
         verbose_name='Вопрос',
@@ -48,4 +43,4 @@ class Question(models.Model):
         default_related_name = 'questions'
 
     def __str__(self):
-        return self.name
+        return self.question[:20]

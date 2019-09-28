@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from main.serializers.user import ProfileSerializer, ProfileEditSerializer
+from ..serializers.user import ProfileSerializer, ProfileEditSerializer
 
 __all__ = ['ProfileViewSet']
 
@@ -12,7 +12,7 @@ class ProfileViewSet(APIView):
         return Response(data)
 
     def post(self, request, *args, **kwargs):
-        serializer = ProfileEditSerializer(data=request.data)
+        serializer = ProfileEditSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response()
