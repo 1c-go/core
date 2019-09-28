@@ -1,10 +1,11 @@
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Subquery, OuterRef
 from django_filters import FilterSet, filters
 from rest_framework import mixins, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from questionnaire.models.like import Like
 from ..models import Discussion
 from ..serializers.discussion import DiscussionSerializer
 
@@ -32,7 +33,9 @@ class DiscussionsViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveM
 
     def get_queryset(self):
         user = self.request.user
-        return super().get_queryset().filter(type=user.type)
+        return super().get_queryset().filter(type=user.type).annotate(
+            like=Subquery(Like.objects.filter(discussion=OuterRef('id'),
+                                              user=user).values('value')[:1]))
 
     @action(methods=('post',), detail=True)
     def like(self, request, *args, **kwargs):
