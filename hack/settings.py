@@ -141,11 +141,14 @@ MEDIA_URL = '/media/'
 
 email = os.environ.get('EMAIL')
 DEFAULT_FROM_EMAIL = email
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
+# EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = email
 EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
-EMAIL_PORT = 587
+# EMAIL_PORT = 587
+EMAIL_PORT = 465
 
 
 # -------- rest --------
