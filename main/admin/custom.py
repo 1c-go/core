@@ -20,11 +20,8 @@ class CustomAdminSite(AdminSite):
 
 class VersionedUserAdmin(VersionAdmin, UserAdmin):
     fieldsets = (
-        (None, {
-            'fields': ('username', 'password', 'type')
-        }),
         ('Персональная информация', {
-            'fields': ('nickname', 'full_name', 'email', 'gender', 'city', 'birthday')
+            'fields': ('nickname', 'email', 'gender', 'city', 'birthday', 'type')
         }),
         ('Права', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
