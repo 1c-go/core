@@ -40,10 +40,10 @@ class CustomUser(AbstractUser):
     )
 
     def get_full_name(self):
-        return self.full_name
+        return self.nickname
 
     def get_short_name(self):
-        return self.full_name
+        return self.nickname
 
     def __str__(self):
-        return self.full_name
+        return self.nicknamefu

@@ -51,7 +51,7 @@ class CommentAdmin(VersionAdmin):
 @register(Like, site=admin_site)
 class LikeAdmin(VersionAdmin):
     list_display = ('id', 'discussion', 'created_at', 'user', 'value')
-    search_fields = ('discussion__name', 'user__full_name')
+    search_fields = ('discussion__name', 'user__nickname')
     list_filter = ('value', 'created_at')
 
 

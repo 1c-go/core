@@ -37,9 +37,9 @@ class VersionedUserAdmin(VersionAdmin, UserAdmin):
                        'password1', 'password2'),
         }),
     )
-    list_display = ('username', 'nickname', 'email', 'full_name', 'type', 'is_staff')
+    list_display = ('username', 'nickname', 'email', 'type', 'is_staff')
     list_filter = ('type',)
-    search_fields = ('username', 'nickname', 'full_name', 'email')
+    search_fields = ('username', 'nickname', 'email')
 
 
 class VersionedGroupAdmin(VersionAdmin, GroupAdmin):
