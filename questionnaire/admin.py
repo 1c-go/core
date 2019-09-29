@@ -44,7 +44,7 @@ class TopicAdmin(ModelAdmin):
 
 @register(Comment, site=admin_site)
 class CommentAdmin(ModelAdmin):
-    list_display = ('id', 'discussion', 'user')
+    list_display = ('id', 'discussion', 'user', 'text', 'sentiment')
 
 
 @register(Like, site=admin_site)
@@ -62,12 +62,28 @@ class QuestionTable(TabularInline):
     extra = 3
 
 
+class CommentTable(TabularInline):
+    model = Comment
+    classes = ('collapse',)
+    fields = ('user', 'text', 'sentiment')
+    readonly_fields = fields
+    extra = 0
+
+
+class LikeTable(TabularInline):
+    model = Like
+    classes = ('collapse',)
+    fields = ('created_at', 'user', 'value')
+    readonly_fields = fields
+    extra = 0
+
+
 @register(Discussion, site=admin_site)
 class DiscussionAdmin(ModelAdmin):
     list_display = ('id', 'topic', 'name', 'type')
     list_filter = ('type',)
     search_fields = ('topic__name', 'name')
-    inlines = (QuestionTable,)
+    inlines = (QuestionTable, CommentTable, LikeTable)
 
 
 class AnswerVariantTable(TabularInline):
@@ -77,15 +93,23 @@ class AnswerVariantTable(TabularInline):
     extra = 3
 
 
+class AnswerTable(TabularInline):
+    model = Answer
+    classes = ('collapse',)
+    fields = ('user', 'answer', 'sentiment')
+    readonly_fields = fields
+    extra = 0
+
+
 @register(Question, site=admin_site)
 class QuestionAdmin(ModelAdmin):
     list_display = ('id', 'question', 'answer_type')
-    inlines = (AnswerVariantTable,)
     search_fields = ('question',)
+    inlines = (AnswerVariantTable, AnswerTable)
 
 
 @register(Answer, site=admin_site)
 class AnswerAdmin(ModelAdmin):
-    list_display = ('id', 'question', 'answer')
+    list_display = ('id', 'question', 'user', 'answer', 'sentiment')
     list_filter = ('question', 'answer')
     search_fields = ('question__question',)
