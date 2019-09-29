@@ -15,7 +15,7 @@ __all__ = ['DiscussionsViewSet']
 
 
 class CommentParser(serializers.Serializer):
-    text = serializers.CharField(allow_blank=False)
+    text = serializers.CharField(min_length=1)
 
 
 class LikeParser(serializers.Serializer):
