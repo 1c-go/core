@@ -81,7 +81,7 @@ class LikeTable(TabularInline):
 
 @register(Discussion, site=admin_site)
 class DiscussionAdmin(VersionAdmin):
-    list_display = ('id', 'topic', 'name', 'preview', 'type')
+    list_display = ('id', 'topic', 'name', 'preview', 'type', 'created_at', 'closed_at')
     list_filter = ('type', 'created_at', 'closed_at')
     search_fields = ('topic__name', 'name')
     inlines = (QuestionTable, CommentTable, LikeTable)
