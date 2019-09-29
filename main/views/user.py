@@ -1,3 +1,4 @@
+import traceback
 from uuid import uuid4
 
 from django.conf import settings
@@ -27,6 +28,9 @@ class RegistrationView(APIView):
         mail = serializer.validated_data.get('email')
         if mail:
             code = uuid4()
-            send_mail('Подтверждение почты', f'https://jlemyp.ru:8000/verify-email/{code}/',
-                      settings.DEFAULT_FROM_EMAIL, [mail])
+            try:
+                send_mail('Подтверждение почты', f'https://jlemyp.ru:8000/verify-email/{code}/',
+                          settings.DEFAULT_FROM_EMAIL, [mail])
+            except Exception as e:
+                traceback.print_exc()
         return Response()
