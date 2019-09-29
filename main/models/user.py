@@ -46,4 +46,4 @@ class CustomUser(AbstractUser):
         return self.nickname
 
     def __str__(self):
-        return self.nicknamefu
+        return self.nickname
