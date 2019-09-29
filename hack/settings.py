@@ -139,6 +139,15 @@ MEDIA_ROOT = 'media'
 # MEDIA_URL = 'http://127.0.0.1:8000/_storage/'
 MEDIA_URL = '/media/'
 
+email = os.environ.get('EMAIL')
+DEFAULT_FROM_EMAIL = email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
+EMAIL_PORT = 587
+
+
 # -------- rest --------
 
 REST_FRAMEWORK = {
