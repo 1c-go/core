@@ -24,7 +24,7 @@ if Conf.ORM or Conf.TESTING:
 
 @register(News, site=admin_site)
 class NewsAdmin(VersionAdmin):
-    list_filter = ('id', 'title', 'created_at')
+    list_filter = ('created_at',)
     list_display = ('id', 'title', 'created_at')
 
 
@@ -50,9 +50,9 @@ class CommentAdmin(VersionAdmin):
 
 @register(Like, site=admin_site)
 class LikeAdmin(VersionAdmin):
-    list_display = ('id', 'discussion', 'user', 'value')
+    list_display = ('id', 'discussion', 'created_at', 'user', 'value')
     search_fields = ('discussion__name', 'user__full_name')
-    list_filter = ('value',)
+    list_filter = ('value', 'created_at')
 
 
 class QuestionTable(TabularInline):
@@ -81,8 +81,8 @@ class LikeTable(TabularInline):
 
 @register(Discussion, site=admin_site)
 class DiscussionAdmin(VersionAdmin):
-    list_display = ('id', 'topic', 'name', 'type')
-    list_filter = ('type',)
+    list_display = ('id', 'topic', 'name', 'preview', 'type')
+    list_filter = ('type', 'created_at', 'closed_at')
     search_fields = ('topic__name', 'name')
     inlines = (QuestionTable, CommentTable, LikeTable)
 
@@ -105,6 +105,7 @@ class AnswerTable(TabularInline):
 @register(Question, site=admin_site)
 class QuestionAdmin(VersionAdmin):
     list_display = ('id', 'question', 'answer_type')
+    list_filter = ('answer_type',)
     search_fields = ('question',)
     inlines = (AnswerVariantTable, AnswerTable)
 
