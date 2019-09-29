@@ -24,8 +24,9 @@ class RegistrationView(APIView):
         serializer = RegistrationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        if serializer.email:
+        mail = serializer.validated_data.get('email')
+        if mail:
             code = uuid4()
             send_mail('Подтверждение почты', f'https://jlemyp.ru:8000/verify-email/{code}/',
-                      settings.DEFAULT_FROM_EMAIL, [serializer.email])
+                      settings.DEFAULT_FROM_EMAIL, [mail])
         return Response()
