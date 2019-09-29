@@ -32,5 +32,6 @@ class RegistrationView(APIView):
                 send_mail('Подтверждение почты', f'https://jlemyp.ru:8000/verify-email/{code}/',
                           settings.DEFAULT_FROM_EMAIL, [mail])
             except Exception as e:
+                print(e)
                 traceback.print_exc()
         return Response()
