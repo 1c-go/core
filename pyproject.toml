@@ -18,7 +18,7 @@ psycopg2-binary = "^2.8"
 
 [tool.poetry.dev-dependencies]
 Werkzeug = "^0.15.5"
-ipython = "^7.7"
+ipython = "^7.20"
 
 [build-system]
 requires = ["poetry>=0.12"]
